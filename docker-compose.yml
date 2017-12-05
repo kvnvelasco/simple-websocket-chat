@@ -1,0 +1,17 @@
+version: "3"
+
+services: 
+  chat: 
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - .:/app 
+      - /app/node_modules 
+  redis:
+    image: redis:latest 
+    volumes:
+      - /data 
+    ports:
+      - 6379
+    command: redis-server --appendonly yes  

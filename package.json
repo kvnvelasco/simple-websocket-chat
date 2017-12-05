@@ -1,0 +1,29 @@
+{
+    "name": "simple-chat-service",
+    "version": "1.0.0",
+    "description": "A simple node backend for chat ",
+    "main": "index.js",
+    "scripts": {
+        "start": "yarn && nodemon --exec 'ts-node' server.ts",
+        "build": "yarn && rm -rf dist/* && tsc -p . &&  forever start dist/server.js ",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "kevin velasco",
+    "license": "ISC",
+    "dependencies": {
+        "@types/express": "^4.0.39",
+        "@types/node": "^8.0.53",
+        "@types/redis": "^2.8.1",
+        "@types/ws": "^3.2.0",
+        "express": "^4.16.2",
+        "forever": "^0.15.3",
+        "koa": "^2.4.1",
+        "nodemon": "^1.12.1",
+        "redis": "^2.8.0",
+        "socket.io": "^2.0.4",
+        "ts-node": "^3.3.0",
+        "typescript": "^2.6.1",
+        "websockets": "^0.2.0",
+        "ws": "^3.3.1"
+    }
+}
