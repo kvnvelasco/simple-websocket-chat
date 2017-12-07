@@ -1,13 +1,17 @@
 import { Server } from "ws";
 import * as express from "express";
+
 import * as http from "http";
-
+import * as multer from 'multer'
 const client = require("./model/redis");
-
 const app = express();
 const server = http.createServer(app);
 
-const ws = new Server({ server });
+const uploader = multer({
+  dest: '/files',
+})
+
+const router = express.Router()
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -16,8 +20,17 @@ app.use((req, res, next) => {
   next();
 });
 
+app.post('/upload', uploader.single('file'), (req, res, next) => {
+  res.send((req as any).file)
+  res.status(200)
+  next()
+})
+
+app.use('/files', express.static('/files'))
+
 let rooms = {};
 
+const ws = new Server({ server });
 ws.on("connection", (socket, request) => {
   let username = "";
   let room = "";
@@ -140,6 +153,7 @@ ws.on("connection", (socket, request) => {
     });
   });
 });
+
 
 server.listen(80, () => {
   console.log("listening on 8000");
